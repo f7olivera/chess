@@ -23,16 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-# SECRET_KEY = 'django-insecure-+szapcy%zina7dwjza_vaepc7822uzl+wi1n1npt$f)7b!o&z7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     'https://drj-chess.herokuapp.com',
-    '192.168.0.30',
-    '127.0.0.1',
-    '192.168.0.7'
 ]
 
 # Application definition
@@ -103,18 +99,9 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             'hosts': [os.environ.get('REDIS_URL')]
-            # "hosts": [('192.168.0.30', 6379)],
         }
     }
 }
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-#         'LOCATION': 'redis://192.168.0.30:6379',
-#         # 'LOCATION': 'redis://drj-chess.herokuapp.com:6379',
-#     }
-# }
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -180,9 +167,6 @@ STATICFILES_DIRS = (
 
 CORS_ORIGIN_WHITELIST = [
     'https://drj-chess.herokuapp.com',
-    'http://192.168.0.30:8000',
-    'http://localhost:3000',
-    'http://localhost:8000',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://drj-chess.herokuapp.com']
