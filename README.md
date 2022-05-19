@@ -1,5 +1,3 @@
-A Django/ReactJS web page to play chess.
-
 [Play here!](https://drj-chezz.herokuapp.com)
 
 ![](https://i.imgur.com/2NRSBuD.png)
