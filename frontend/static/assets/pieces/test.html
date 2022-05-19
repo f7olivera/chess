@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="pieces.css">
+    <style>
+        .piece
+        {
+            height: 10vh;
+            width: 10vh;
+            background-size: cover;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            z-index: 1;
+        }
+
+        .picked
+        {
+            position: fixed !important;
+            /* pointer-events: none; */
+            z-index: 2 !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="piece pw" aria-disabled="true"></div>
+    <script>
+        document.querySelector('.piece').onmousedown = (e) => pickPiece(e);
+        function pickPiece(event) {
+        if (event.button === 0) {
+            const element = event.target;
+
+            // Hold
+            element.classList.add('picked');
+            element.style.top = `${event.clientY - parseInt(element.offsetHeight / 2, 10)}px`;
+            element.style.left = `${event.clientX - parseInt(element.offsetWidth / 2, 10)}px`;
+
+            // Drop
+            document.onmouseup = (eventMouseUp) => {
+                element.classList.remove('picked');
+                document.onmouseup = null;
+                document.onmousemove = null;
+            };
+
+            // Drag
+            document.onmousemove = (eventMouseUpMove) => {
+                const newTop = eventMouseUpMove.clientY - parseInt(element.offsetHeight / 2, 10);
+                const newLeft = eventMouseUpMove.clientX - parseInt(element.offsetWidth / 2, 10);
+                element.style.top = `${newTop}px`;
+                element.style.left = `${newLeft}px`;
+            };
+        }
+    }
+    async function asd() {
+        const promesa = new Promise((resolve) => {
+        document.querySelector('.piece').onclick = () => resolve("asd");
+        });
+        promesa.then((mensaje) => console.log(mensaje))
+    }
+    asd()
+    </script>
+</body>
+</html>

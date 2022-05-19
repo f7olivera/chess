@@ -1,0 +1,292 @@
+{% load static %}
+{% load new_game_form %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chess</title>
+    <!-- <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script> -->
+    <!-- <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> -->
+    <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+    <link rel="shortcut icon" href="{% static 'assets/favicon.png' %}" type="image/x-icon">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/pieces/pieces.css' %}">
+</head>
+
+<body>
+<nav class="navbar navbar-expand navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Chess</a>
+        <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create a game</h5>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form action="{% url 'create' %}" method="POST" id="new-game-form">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            {% create_new_form as create %}
+
+                            {{ create.non_field_errors }}
+
+                            <div class="create-board" onclick="editStartingFen()">
+                                <!-- <Miniboard /> -->
+                            </div>
+                            {{ create.starting_fen.errors }}
+                            {{ create.starting_fen }}
+                            <span class="form-error d-none" id="invalid-fen">Invalid FEN.</span>
+
+                            {{ create.opponent.errors }}
+                            {{ create.opponent }}
+                            <span class="form-error d-none" id="user-error"></span>
+
+                            <div class="select-opponent">
+
+                                <div id="checkbox-container">
+                                    {{ create.share_link.errors }}
+                                    {{ create.share_link.label_tag }}
+                                    {{ create.share_link }}
+                                </div>
+                            </div>
+
+
+                            <div class="new-game-fields-group" id="time-settings">
+                                {{ create.time_mode.errors }}
+                                {{ create.time_mode }}
+                                <span>
+                                    Minutes per side: <output id="time_value">10</output>
+                                </span>
+                                <input type="range" name="time" value="14" min="1" max="38" class="range"
+                                       oninput="translateTimeInput(parseInt(this.value))" id="id_time_range">
+                                {{ create.time.errors }}
+                                {{ create.time }}
+                            </div>
+
+                            {{ create.white_player.errors }}
+                            {{ create.white_player }}
+                            <div class="pieces choose-side">
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-game-form'))"
+                                        class="square background-metalic">
+                                    <div title="White" class="piece kw play_as_white"></div>
+                                </button>
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-game-form'))"
+                                        class="square background-metalic random">
+                                    <div title="Random side" class="piece kwb play_as_random"></div>
+                                </button>
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-game-form'))"
+                                        class="square background-metalic"
+                                        role="button">
+                                    <div title="Black" class="piece kb play_as_black"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="{% url 'editor' %}" method="POST" id="edit_starting_fen">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="stockfishModal" tabIndex="-1" aria-labelledby="stockfishModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="stockfishModalLabel">Play with Stockfish</h5>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"
+                                aria-label="Close" data-bs-toggle="modal" data-bs-target="#stockfishModal"></button>
+                    </div>
+                    <form action="{% url 'play_stockfish' %}" method="POST" id="new-stockfish-game-form">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="create-stockfish-board" onClick={editStartingFen}>
+                                <!-- <Miniboard /> -->
+                            </div>
+                            <input type="text" name="starting_fen" placeholder="Starting position"
+                                   value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+                                   maxLength="90" required=""
+                                   id="id_starting_fen">
+                            <span class="form-error d-none" id="invalid-fen">Invalid FEN.</span>
+                            <span>
+                                Stockfish level: <output class="stockfish-level">10</output>
+                            </span>
+
+                            <input type="range" name="stockfish_level"
+                                   class="range" value="10"
+                                   min="0" max="20" step="1" id="id_stockfish_level"
+                                   oninput="
+                            Array.from(document.querySelectorAll('.stockfish-level')).forEach((elem) => elem.textContent
+                            = this.value)">
+
+                            <span>
+                                Stockfish thinking time: <output class="stockfish-thinking-time">500</output> ms
+                            </span>
+
+                            <input type="range" name="stockfish_thinking_time"
+                                   value="500" min="100" max="5000" step="50" class="range"
+                                   id="id_stockfish_thinking_time"
+                                   oninput="Array.from(document.querySelectorAll('.stockfish-thinking-time')).forEach((elem) =>
+                            elem.innerHTML = this.value)">
+                            <div class="pieces choose-side">
+                                <input type="text" style="display: none;" name="playing_as" id="playing_as">
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-stockfish-game-form'), event)"
+                                        class="square background-metalic">
+                                    <div title="White" name="w" class="piece kw play_as_white"></div>
+                                </button>
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-stockfish-game-form'), event)"
+                                        class="square background-metalic random">
+                                    <div title="Random side" name="random" class="piece kwb play_as_random"></div>
+                                </button>
+                                <button type="button"
+                                        onclick="validateNewGameForm(document.querySelector('#new-stockfish-game-form'), event)"
+                                        class="square background-metalic"
+                                        role="button">
+                                    <div title="Black" name="b" class="piece kb play_as_black"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="{% url 'editor' %}" method="POST" id="edit_starting_fen">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" id="game" aria-current="page" href="play/a">Play</a>
+                </li> -->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Play
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                               id="create_button">
+                                With a friend
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" href=""
+                               id="launch-stockfish-settings"
+                               class="nav-link btn btn-primary"
+                               data-bs-toggle="modal"
+                               data-bs-target="#stockfishModal">With the computer</a></li>
+                        <li><a class="dropdown-item" href="{% url 'play_offline' %}">Over the board</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="editor" href="{% url 'editor' %}">Editor</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown user">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'games' filter_option='all' %}">My games</a></li>
+                            <li><a class="dropdown-item" href="{% url 'games' filter_option='bookmarks' %}">Favorites</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item login">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                {% endif %}
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li> -->
+            </ul>
+            <!-- <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+        </div>
+    </div>
+</nav>
+{{ room_name|json_script:"room-name" }}
+{{ post_fen|json_script:"post-fen" }}
+{{ post_pgn|json_script:"post-pgn" }}
+{{ fen|json_script:"stockfish-fen" }}
+{{ playing_as|json_script:"playing-as" }}
+{{ skill_level|json_script:"stockfish-skill-level" }}
+{{ thinking_time|json_script:"stockfish-thinking-time" }}
+{% if user.is_authenticated %}
+    {{ user.username|json_script:"user" }}
+{% else %}
+    {{ "Anonymous"|json_script:"user" }}
+{% endif %}
+
+<div id="root"></div>
+
+{% block body %}
+{% endblock %}
+
+<script>var exports = {};</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="{% static 'frontend/main.js' %}"></script>
+<script>
+  const navbar = document.querySelector('.navbar');
+  const userContainerWidth = document.querySelector('.user') ? document.querySelector('.user').offsetWidth : 80;
+
+  window.onresize = () => {
+
+    window.innerWidth < 320 + userContainerWidth ? navbar.classList.replace('navbar-expand', 'navbar-expand-sm') : navbar.classList.replace('navbar-expand-sm', 'navbar-expand')
+  };
+  window.dispatchEvent(new Event('resize'));
+  
+  const body = document.querySelector('body');
+  const modal = document.querySelector('.unavoidable-modal');
+  if (modal) {
+    const modalGroup = modal.querySelector('.modal-group')
+
+    const navbarToggler = document.querySelector('.navbar-toggler');
+      navbarToggler.onclick = () => {
+        console.log(!navbarToggler.classList.contains('collapsed'))
+        if (!navbarToggler.classList.contains('collapsed') && navbar.classList.contains('navbar-expand-sm')) {
+            body.style.backgroundPosition = `50% calc(50% + ${navbar.offsetHeight}px)`
+            modalGroup.style.marginTop = `${2 * navbar.offsetHeight}px`
+        } else {
+            body.style.backgroundPosition = `50% 50%`
+            modalGroup.style.marginTop = '0';
+        }
+      }
+  }
+  
+</script>
+</body>
+
+</html>

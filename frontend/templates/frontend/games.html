@@ -1,0 +1,75 @@
+{% extends "frontend/index.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="games">
+        <div class="games-header">
+            <p id="title">Games</p>
+            <div class="games-filter">
+                <div class="plain-anchor{% if filter_option == 'all' %} active {% endif %}" onclick="fetchGames('{% url 'games' filter_option='all' %}')" id="all">
+                    <p>all</p>
+                    <p class="ammount">{{ total_games }}</p>
+                </div>
+                <div class="plain-anchor{% if filter_option == 'wins' %} active {% endif %}" onclick="fetchGames('{% url 'games' filter_option='wins' %}')" id="wins">
+                    <p>wins</p>
+                    <p class="ammount">{{ total_wins }}</p>
+                </div>
+                <div class="plain-anchor{% if filter_option == 'losses' %} active {% endif %}" onclick="fetchGames('{% url 'games' filter_option='losses' %}')" id="losses">
+                    <p>losses</p>
+                    <p class="ammount">{{ total_losses }}</p>
+                </div>
+                <div class="plain-anchor{% if filter_option == 'draws' %} active {% endif %}" onclick="fetchGames('{% url 'games' filter_option='draws' %}')" id="draws">
+                    <p>draws</p>
+                    <p class="ammount">{{ total_draws }}</p>
+                </div>
+                <div class="plain-anchor{% if filter_option == 'bookmarks' %} active {% endif %}" onclick="fetchGames('{% url 'games' filter_option='bookmarks' %}')" id="bookmarks">
+                    <p>bookmarks</p>
+                    <p class="ammount">{{ total_bookmarks }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="game-list-container">
+            <div class="game-list">
+                {% for game in games %}
+                    <div class="game-preview">
+                        <a href="{% url 'play' room_name=game.game.id %}">
+                            <div class="preview-info">
+                                <div class="players">
+                                    <span class="white-player{% if user.username == game.white_player %} current{% endif %}">{{ game.white_player }}</span>
+                                    <img class="sword" src="{% static 'assets/crossed-swords.svg' %}">
+                                    <span class="black-player{% if user.username == game.black_player %} current{% endif %}">{{ game.black_player }}</span>
+                                </div>
+                                <p class="outcome">{{ game.outcome }}</p>
+                            </div>
+                            <div class="svg-board">{{ game.svg|safe }}</div>
+                            <span class="creation-time">{{ game.creation_time }}</span>
+                        </a>
+                    </div>
+                {% empty %}
+                    <span style="padding-bottom: min(10rem, 25%);; padding-top: min(10rem, 25%);;">
+                        No games.
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <script>
+        const fetchGames = async (url) => {
+          const gamesWebpage = await (await fetch(window.origin + url)).text();
+          const parser = new DOMParser();
+          const htmlDocument = parser.parseFromString(gamesWebpage, "text/html");
+          const filter_option = url.split('/')[2];
+          document.querySelector('.game-list-container').innerHTML = '';
+          document.querySelector('.game-list-container').appendChild(htmlDocument.documentElement.querySelector(".game-list"));
+          document.querySelector('.active').classList.remove('active');
+          document.querySelector(`#${filter_option}`).classList.add('active');
+          window.history.pushState({}, '', url);
+          document.title = `{{ user }}: 
+                            ${document.querySelector(`#${filter_option}`).querySelector('.ammount').textContent} 
+                            ${filter_option === 'all' ? 'games' : filter_option}`;
+        }
+        document.title = `{{ user }}: {{ games|length }} {% if filter_option == 'all' %}games{% else %}{{ filter_option }}{% endif %}`;
+    </script>
+{% endblock %}

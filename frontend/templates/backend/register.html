@@ -1,0 +1,35 @@
+{% extends "frontend/index.html" %}
+{% load static %}
+
+{% block body %}
+
+    <form class="authentication" action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <span style="font-size: 2rem">Register</span>
+            <div class="form-group">
+                <input class="form-control shadow-none" oninput="validateNewUser()" autofocus type="text" name="username" placeholder="Username" value="{{ username }}">
+                <span class="form-error {{ user_error|yesno:"d-block,d-none" }}" id="user-error">{{ user_error|yesno:yesno_args }}</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control shadow-none" oninput="validateEmail()" type="email" name="email" placeholder="Email Address" value="{{ email }}">
+                <span class="form-error {{ email_error|yesno:"d-block,d-none" }}" id="email-error">{{ email_error|yesno:yesno_args }}</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control shadow-none" oninput="validatePassword(this)" type="password" name="password" placeholder="Password">
+                <span class="form-error {{ password_error|yesno:"d-block,d-none" }}" id="password-error">{{ password_error|yesno:yesno_args }}</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control shadow-none" oninput="validatePassword(this)" type="password" name="confirmation" placeholder="Confirm Password">
+                <span class="form-error {{ confirmation_error|yesno:"d-block,d-none" }}" id="confirmation-error">{{ confirmation_error|yesno:yesno_args }}</span>
+            </div>
+            <div>
+                <input class="btn shadow-none w-100" onclick="submitRegisterForm()" type="button" value="Register">
+            </div>
+            <div class="authentication-options">
+                <a class="authentication-link" href="{% url 'login' %}">Log In here</a>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
