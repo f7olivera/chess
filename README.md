@@ -13,12 +13,15 @@ A Django/ReactJS web page to play chess.
 
 ## Create a new game
 Play against your friends on custom positions, by time or unlimited.
+
 ![](https://i.imgur.com/X1TIJfh.png)
 
 ## Board analysis
 Analyze your games with [Stockfish 11](https://github.com/nmrugg/stockfish.js/tree/Stockfish11).
+
 ![](https://i.imgur.com/yvPTBR3.png)
 
 ## Browse your games
 Review your previous games to see what you did wrong.
+
 ![](https://i.imgur.com/UW2OhiZ.png)
