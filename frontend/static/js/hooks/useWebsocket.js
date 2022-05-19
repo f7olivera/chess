@@ -16,7 +16,7 @@ export default function useWebsocket({chessState: [chess, setChess],
   const getWebsocket = () => {
     const roomName = JSON.parse(document.querySelector('#room-name').textContent);
     const websocket = new WebSocket(
-      'ws://'
+      'wss://'
       + window.location.host
       + '/ws/game/'
       + roomName
