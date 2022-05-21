@@ -101,7 +101,6 @@ export default function useStockfishAnalysis({
       );
       pv.map((move) => newChess.move(move, {sloppy: true}));
       setBestMove(newChess.history().length > 0 ? newChess.history({verbose: true})[currentChess.history().length] : bestMove);
-      // TODO: Optimize parseHistory here too?
       const parsedHistory = parseHistory(newChess);
       const newAnalysis = {
         line:

@@ -10,7 +10,6 @@ import {flip, resign_confirmation} from "../redux/gameSlice.js";
 
 
 export default function Game() {
-  // TODO: load chess from cache
   const [chess, setChess] = React.useState(new Chess());
   const [fakeChess, setFakeChess] = React.useState();
   const [whiteTime, setWhiteTime] = React.useState(undefined);

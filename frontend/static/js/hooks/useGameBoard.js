@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {gameActions} from '../redux/gameSlice.js'
 
 
-// TODO: error if board is not wrapped in a div with class 'game'
 export default function useGameBoard({chessState: [chess, setChess], fakeChess, timeState}) {
   const state = useSelector((state) => state.game);
   const dispatch = useDispatch();

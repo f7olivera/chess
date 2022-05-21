@@ -46,7 +46,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("login"))
 
 
-# TODO: make chosen username lowercase. Same for validating when login
 def register(request):
     if request.method == "POST":
         username = request.POST["username"].lower()

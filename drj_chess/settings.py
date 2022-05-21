@@ -171,9 +171,6 @@ CORS_ORIGIN_WHITELIST = [
 
 CSRF_TRUSTED_ORIGINS = ['https://drj-chess.herokuapp.com']
 
-# TODO: ¿esto se queda o se va?
-# CORS_ORIGIN_ALLOW_ALL = True
-
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 prod_db = dj_database_url.config(conn_max_age=500)
