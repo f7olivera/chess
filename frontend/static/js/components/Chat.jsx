@@ -11,7 +11,6 @@ function Chat({ws}) {
     chat
   } = useSelector((state) => state.game);
   const dispatch = useDispatch();
-  console.log('re-rendered chat')
 
   const addChatMessage = (e) => {
     const message = e.target.message.value;
