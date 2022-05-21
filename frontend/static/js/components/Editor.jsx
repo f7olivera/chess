@@ -4,7 +4,7 @@ import Chess from 'chess.js';
 import Board from './Board.jsx';
 import Square from './Square.jsx';
 import Piece from './Piece.jsx'
-import {makeMove} from "./Board.jsx";
+import {makeMove} from "../misc/misc.js";
 
 
 export default function Editor({postFen}) {

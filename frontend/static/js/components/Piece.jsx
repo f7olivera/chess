@@ -52,8 +52,6 @@ export default function Piece({chess, onDrop, ended, turn, type, color, promotio
               board.onmousedown = null;
               document.onclick = null;
               document.ontouchstart = null;
-              // TODO: esto k onda
-              // document.ontouchend = (e) => e.preventDefault();
             }
             resolve();
           }
@@ -93,18 +91,6 @@ export default function Piece({chess, onDrop, ended, turn, type, color, promotio
       // Drop
       document.onmouseup = drop
       document.ontouchend = drop
-      // document.onmouseup = async (e) => {
-      //   drop(e);
-      //   board.onmousedown = null;
-      //   document.onclick = null;
-      //   document.ontouchstart = null;
-      // };
-      // document.ontouchend = (e) => {
-      //   drop(e);
-      //   board.onmousedown = null;
-      //   document.onclick = null;
-      //   document.ontouchstart = null;
-      // };
 
       // Drag
       document.onmousemove = moveASD;

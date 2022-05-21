@@ -29,10 +29,6 @@ export default function Games() {
           document.querySelector('.game-list').appendChild(game);
         })
         document.querySelector('.lds-ring').style.display = 'none';
-        // document.querySelector('.game-list-container').innerHTML = '';
-        // document.querySelector('.game-list-container').appendChild(htmlDocument.documentElement.querySelector(".game-list"));
-        // document.querySelector('.active').classList.remove('active');
-        // document.querySelector(`#${filter_option}`).classList.add('active');
       } catch (e) {
         console.log(e)
       }
