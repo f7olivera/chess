@@ -298,7 +298,7 @@ class ChessGame(WebsocketConsumer):
 
             parsed_chat = {'message': chat_message.message,
                            'sender': chat_message.sender.username if chat_message.sender.username != 'Anonymous' else
-                            (('[white]' if players.get(user=chat_message.sender).is_white else '[black]')
+                            (('[white]' if players.get(session_key=chat_message.session_key).is_white else '[black]')
                              if players.filter(session_key=chat_message.session_key).exists() else 'Anonymous'),
                            'date': str(chat_message.date)}
 
