@@ -26,7 +26,6 @@ export default function Timer({ time, setTime, running }) {
     const deciseconds = Math.floor((secondsLeft % 1) * 10);
     const date = new Date(0);
     date.setSeconds(secondsLeft < 0 ? 0 : secondsLeft); // specify value for SECONDS here
-    console.log(secondsLeft)
     const timeString = date.toISOString().substr(secondsLeft >= 3600 ? 11 : 14, secondsLeft >= 3600 ? 8 : 5) + (0.000000001 < secondsLeft && secondsLeft < 10 ? '.' + deciseconds.toString() : '');
     setTimeFormat(timeString);
   }, [time])
