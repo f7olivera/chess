@@ -135,7 +135,7 @@ export default function useStockfishAnalysis({
         depth: data[data.findIndex((elem) => elem === 'depth') + 1],
         cp: parseFloat(!rawData.includes('mate') && data[data.findIndex((elem) => elem === 'cp') + 1])
       };
-      setScore((currentChess.turn() === 'b' ? -1 : 1) * (newAnalysis.cp / 100));
+      setScore((newAnalysis.cp / 100));
       setAnalysis(newAnalysis);
     }
     if (data.includes('mate') && !currentChess.game_over()) {
