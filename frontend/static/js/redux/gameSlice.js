@@ -12,8 +12,6 @@ export const gameSlice = createSlice({
     spectator: false,
     whitePlayer: undefined,
     blackPlayer: undefined,
-    whiteTime: undefined,
-    blackTime: undefined,
     end_type: undefined,
     started: false,
     endType: undefined,
@@ -106,11 +104,6 @@ export const gameSlice = createSlice({
     flip: (state) => {
       state.orientation = state.orientation === 'w' ? 'b' : 'w';
     },
-    setTime: (state, action) => {
-      action.payload['player'] === 'w' ?
-        state.whiteTime = action.payload['time'] :
-        state.blackTime = action.payload['time']
-    },
     wait_before_start: (state, action) => {
       state.wait = true;
       state.waitingFor = action.payload['waiting_for'];
@@ -131,9 +124,9 @@ export const gameSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {connect, spectate, start, undo, move, resign_confirmation,
-              draw_offer, end, flip, setTime, wait_before_start, stop_waiting, chat_message, setState} = gameSlice.actions
+              draw_offer, end, flip, wait_before_start, stop_waiting, chat_message, setState} = gameSlice.actions
 
 export const gameActions = {connect, spectate, start, undo, move, resign_confirmation,
-                            draw_offer, end, flip, setTime, wait_before_start, stop_waiting, chat_message, setState}
+                            draw_offer, end, flip, wait_before_start, stop_waiting, chat_message, setState}
 
 export default gameSlice.reducer

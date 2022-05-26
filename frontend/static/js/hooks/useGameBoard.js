@@ -8,7 +8,6 @@ import {gameActions} from '../redux/gameSlice.js'
 
 export default function useGameBoard({chessState: [chess, setChess], fakeChess, timeState}) {
   const state = useSelector((state) => state.game);
-  const dispatch = useDispatch();
 
   // Updates board
   React.useEffect(() => {

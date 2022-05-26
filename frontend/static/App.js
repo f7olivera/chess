@@ -13,6 +13,10 @@ import {Provider} from 'react-redux'
 
 
 export default function App() {
+  if (window.Cypress) {
+    window.store = store
+  }
+
   return (
     <Provider store={store}>
       <Miniboard container={document.querySelector('.create-board')}/>
@@ -45,9 +49,9 @@ export default function App() {
           <Route path='favorites'/>
           <Route path='analysis'
                  element={<Analysis postFen={JSON.parse(document.getElementById('post-fen').textContent)}
-                                    postPgn={JSON.parse(document.getElementById('post-pgn').textContent)} />}>
+                                    postPgn={JSON.parse(document.getElementById('post-pgn').textContent)}/>}>
             <Route path="*" element={<Analysis/>} postFen={JSON.parse(document.getElementById('post-fen').textContent)}
-                   postPgn={JSON.parse(document.getElementById('post-pgn').textContent)} />} />
+                   postPgn={JSON.parse(document.getElementById('post-pgn').textContent)}/>} />
           </Route>
         </Routes>
       </Router>

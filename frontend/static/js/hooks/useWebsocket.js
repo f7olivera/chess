@@ -86,7 +86,7 @@ export default function useWebsocket({chessState: [chess, setChess],
     // Executes actions from server
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      // Object.keys(data).forEach((key) => console.log(key + '\n', data[key]));
+      Object.keys(data).forEach((key) => console.log(key + '\n', data[key]));
       if (['connect', 'start', 'move', 'draw_offer', 'end', 'undo', 'stop_waiting',
            'spectate', 'wait_before_start', 'chat_message'].includes(data['action'])) {
         dispatch(gameActions[data['action']](data))

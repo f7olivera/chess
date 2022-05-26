@@ -2,6 +2,7 @@ EVN_DIR/
 .idea/
 #frontend/node_modules/
 venv/
+cypress/
 #db.sqlite3
 #backend/__pycache__/views.cpython-310.pyc
 
@@ -303,3 +304,6 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,django,react
+frontend/static/frontend/main.js
+frontend/static/frontend/main.js.LICENSE.txt
+frontend/cypress.json

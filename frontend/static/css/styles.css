@@ -88,7 +88,21 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
 .index {
     display: flex;
     justify-content: center;
-    padding: 2rem;
+}
+
+.index-board {
+    position: absolute;
+    background-image: url(/static/assets/index-background.svg);
+    background-position: center;
+    width: 100%;
+    height: 80%;
+    background-repeat: no-repeat;
+    max-width: 95vw;
+    min-height: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .index .unavoidable-modal {
@@ -104,8 +118,14 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
     color: #a7a7a7;
 }
 
+.index .modal-group {
+    font-size: 1.5rem;
+    z-index: 4;
+    width: 35rem;
+    max-width: 95vw;
+}
+
 .modal-group {
-    width: 40rem;
     display: flex;
     flex-direction: column;
     background-color: unset !important;
@@ -124,6 +144,7 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
 .modal-btn {
     text-decoration: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .modal-btn:hover {
@@ -190,6 +211,7 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
 }
 
 .player {
+    max-width: 80vh;
     /*width: fit-content;*/
     /*align-self: start;*/
 }
@@ -439,7 +461,7 @@ label[for^=castle], label[for='inputFEN'] {
 }
 
 .navbar-brand:hover {
-    color: #3692e7 !important;  
+    color: #3692e7 !important;
 }
 
 .nav-link:hover {
@@ -989,6 +1011,11 @@ label[for^=castle], label[for='inputFEN'] {
 
 .game {
     justify-content: center;
+}
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+.game .board {
+    max-width: 80vh;
 }
 
 .flip-button.offline {
