@@ -2,7 +2,6 @@ EVN_DIR/
 .idea/
 #frontend/node_modules/
 venv/
-cypress/
 #db.sqlite3
 #backend/__pycache__/views.cpython-310.pyc
 

@@ -27,9 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'https://drj-chess.herokuapp.com',
-]
+ALLOWED_HOSTS = ['https://drj-chess.herokuapp.com']
 
 # Application definition
 
@@ -165,9 +163,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend/node_modules'),
 )
 
-CORS_ORIGIN_WHITELIST = [
-    'https://drj-chess.herokuapp.com',
-]
+CORS_ORIGIN_WHITELIST = ['https://drj-chess.herokuapp.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://drj-chess.herokuapp.com']
 

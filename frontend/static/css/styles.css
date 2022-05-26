@@ -1041,7 +1041,7 @@ label[for^=castle], label[for='inputFEN'] {
 
 .offline-game #game-actions {
     flex: 1 0;
-    max-width: min(50rem, 100vw);
+    max-width: min(53.6rem, 100vw);
     max-height: 100vh;
 }
 
