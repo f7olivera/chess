@@ -102,6 +102,7 @@ export default function Piece({chess, onDrop, ended, turn, type, color, promotio
 
   return (
     <div
+      data-color={color}
       onMouseDown={!disabled && (!playingAs || playingAs === color) && (!turn || turn === color) && !ended && !promotion ?
         pickPiece : () => {
         }}
