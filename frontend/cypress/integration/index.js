@@ -4,24 +4,34 @@ const URL = '192.168.0.30:8000';
 
 context('Play new game', () => {
 
-  before(() => cy.visit(URL));
+  before(() => {
+    cy.visit(URL);
+  });
+
 
   describe('Play with a friend', () => {
-    it.skip('create game', () => {
+    it('click play dropdown', () => {
+    });
+
+    it('create game', () => {
       cy.get('#navbarDropdown').contains(/play/i).click();
       cy.contains(/with a friend/i).should('be.visible').then((elem) => {
         elem[0].click();
         cy.get('#new-game-form').should('be.visible');
+        fenFieldValidation('#new-game-form');
         cy.get('#new-game-form').find('.play_as_white').click();
         cy.url().should('match', /play\/([a-zA-Z\d]){7}/);
-        cy.contains(/waiting for/i).should('be.visible');
       });
+    });
+
+    it('shows waiting message', () => {
+      cy.contains(/waiting for/i).should('be.visible');
     });
   });
 
   describe('Play with Stockfish', () => {
     before(() => cy.visit(URL));
-    it.skip('create game', () => {
+    it('create game', () => {
       cy.get('#navbarDropdown').contains(/play/i).click();
       cy.contains(/with the computer/i).should('be.visible').then((elem) => {
         elem[0].click();
@@ -30,37 +40,16 @@ context('Play new game', () => {
         cy.url().should('match', /play\/stockfish/);
       });
     });
-    it.skip('make move', () => {
-      // cy.get('.game').find('.coord-e2').drag
-      cy.get('.game').find('.coord-e2').then((e2_square) => {
-        const e2_position = e2_square[0].getBoundingClientRect();
-        cy.get('.game').find('.coord-e4').then((e4_square) => {
-          const e4_position = e4_square[0].getBoundingClientRect();
-          console.log(e2_position.x, e2_position.y)
-          console.log(e4_position.x, e4_position.y)
-          cy.wrap(e2_square.find('.pw')).click()
-          cy.wrap(e4_square).click();
-          // .trigger('mousedown', {which: 1})
-          // .trigger('mousemove', {
-          //   // pageX: e4_position.x,
-          //   // pageY: e4_position.y,
-          //   clientX: e4_position.x,
-          //   clientY: e4_position.y,
-          //   // screenX: e4_position.x,
-          //   // screenY: e4_position.y
-          // })
-          // .trigger('mouseup', {which: 1})
-        });
-      });
-      cy.get('.game').find('.coord-e4').find('.pw').should('be.visible');
-      cy.get('.game').find('.coord-e2').find('.piece:visible').should('not.exist');
+    it('make move', () => {
+      testMove('e2e4');
     });
 
-    it.skip('Stockfish responds', () => {
-      cy.get('.last-move').find('[data-color="b"]').should('be.visible');
+    it('Stockfish responds', () => {
+      cy.get('#game-actions').find('.stockfish-thinking-time').then((thinkingTime) => cy.wait(500 + parseInt(thinkingTime.text())));
+      cy.get('.last-move').find('.piece:visible').should('have.data', 'color', 'b');
     });
 
-    it.skip('Flips board', () => {
+    it('Flips board', () => {
       const colNames = 'abcdefgh';
       cy.get('.game').find('.board').find('.board-row').each((row, i) => {
         cy.wrap(row[0].children).each((square, j) => {
@@ -78,3 +67,27 @@ context('Play new game', () => {
 
 
 });
+
+function testMove(uci) {
+  const from = uci.slice(0, 2);
+  const to = uci.slice(2, 4);
+  const piece = cy.get('.game').find(`.coord-${from}`).find('.piece:visible');
+
+  cy.get('.game').find(`.coord-${from}`).then((fromSquare) => {
+    const pieceData = fromSquare.find('.piece:visible').attr('data-piece');
+    cy.get('.game').find(`.coord-${to}`).then((toSquare) => {
+      // Makes move
+      cy.wrap(fromSquare.find('.piece:visible')).click()
+      cy.wrap(toSquare).click();
+    });
+    cy.get('.game').find(`.coord-${to}`).find(`.${pieceData}:visible`).should('be.visible');
+    cy.wrap(fromSquare.find('.piece:visible')).should('not.exist');
+  });
+  piece.then(a => console.log(a[0]))
+}
+
+function fenFieldValidation(selector) {
+  cy.get(selector).then((form) => {
+    form.find('')
+  })
+}
