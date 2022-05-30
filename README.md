@@ -20,6 +20,5 @@ Analyze your games with [Stockfish 11](https://github.com/nmrugg/stockfish.js/tr
 ![](https://i.imgur.com/yvPTBR3.png)
 
 ## Browse your games
-Review your previous games to see what you did wrong.
 
 ![](https://i.imgur.com/UW2OhiZ.png)
