@@ -35,6 +35,8 @@ export default function Games() {
       window.onscroll = listenForEndScroll;
     }
     window.onscroll = listenForEndScroll;
+
+    // return () => document.querySelector('#root').innerHTML = '';
   }, []);
 
   return <></>;

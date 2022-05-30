@@ -4,18 +4,6 @@ import Chess from "chess.js";
 
 
 export default function Index() {
-  React.useEffect(() => {
-    const body = document.querySelector('body');
-    // body.style.backgroundImage = 'url(static/assets/index-background.svg)';
-    // body.style.backgroundPosition = 'center';
-    // body.style.backgroundSize = 'min(95vmin, 50rem)';
-
-    return () => {
-      body.style.backgroundImage = 'unset';
-      body.style.backgroundPosition = 'unset';
-      body.style.backgroundSize = 'unset';
-    }
-  })
 
   return (
     <div className='index'>

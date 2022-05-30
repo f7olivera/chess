@@ -57,5 +57,6 @@ export default function useGameBoard({chessState: [chess, setChess], fakeChess, 
                   )
                 }}
                 disabled={Boolean(state.endType) || fakeChess || state.spectator || state.connectionState === 'reconnecting'}
+                coordinates={true}
                 useRules={true} />;
 }

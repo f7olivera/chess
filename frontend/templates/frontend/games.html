@@ -57,19 +57,21 @@
 
     <script>
         const fetchGames = async (url) => {
-          const gamesWebpage = await (await fetch(window.origin + url)).text();
-          const parser = new DOMParser();
-          const htmlDocument = parser.parseFromString(gamesWebpage, "text/html");
           const filter_option = url.split('/')[2];
-          document.querySelector('.game-list-container').innerHTML = '';
-          document.querySelector('.game-list-container').appendChild(htmlDocument.documentElement.querySelector(".game-list"));
-          document.querySelector('.active').classList.remove('active');
-          document.querySelector(`#${filter_option}`).classList.add('active');
-          window.history.pushState({}, '', url);
-          document.title = `{{ user }}: 
-                            ${document.querySelector(`#${filter_option}`).querySelector('.ammount').textContent} 
-                            ${filter_option === 'all' ? 'games' : filter_option}`;
-        }
-        document.title = `{{ user }}: {{ games|length }} {% if filter_option == 'all' %}games{% else %}{{ filter_option }}{% endif %}`;
+          if (!document.querySelector(`#${filter_option}`).classList.contains('active')) {
+              const gamesWebpage = await (await fetch(window.origin + url)).text();
+              const parser = new DOMParser();
+              const htmlDocument = parser.parseFromString(gamesWebpage, "text/html");
+              document.querySelector('.game-list-container').innerHTML = '';
+              document.querySelector('.game-list-container').appendChild(htmlDocument.documentElement.querySelector(".game-list"));
+              document.querySelector('.active').classList.remove('active');
+              document.querySelector(`#${filter_option}`).classList.add('active');
+              window.history.pushState({}, '', url);
+              document.title = `{{ user }}: 
+                                ${document.querySelector(`#${filter_option}`).querySelector('.ammount').textContent} 
+                                ${filter_option === 'all' ? 'games' : filter_option}`;
+            }
+            document.title = `{{ user }}: {{ games|length }} {% if filter_option == 'all' %}games{% else %}{{ filter_option }}{% endif %}`;
+          }
     </script>
 {% endblock %}
