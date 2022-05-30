@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Index from './js/components/Index.jsx'
+import Navbar from "./js/components/Navbar.jsx";
 import Game from './js/components/Game.jsx'
 import OfflineGame from "./js/components/OfflineGame.jsx";
 import StockfishGame from "./js/components/StockfishGame.jsx";
@@ -11,7 +12,6 @@ import Miniboard from "./js/components/Miniboard.jsx";
 import Authentication from "./js/components/Authentication.jsx";
 import store from "./js/redux/store.js";
 import {Provider} from 'react-redux'
-import Navbar from "./js/components/Navbar.jsx";
 
 
 export default function App() {
@@ -29,34 +29,17 @@ export default function App() {
           <Route path='' element={<Index/>}/>
           <Route path='play/offline' element={<OfflineGame/>}/>
           <Route path='play/stockfish'
-                 element={<StockfishGame
-                   fen={
-                     JSON.parse(document.getElementById('stockfish-fen').textContent)
-                   }
-                   playingAs={
-                     JSON.parse(document.getElementById('playing-as').textContent) === 'random' ?
-                       (Math.round(Math.random()) ? 'w' : 'b') :
-                       JSON.parse(document.getElementById('playing-as').textContent)
-                   }
-                   skillLevel={
-                     JSON.parse(document.getElementById('stockfish-skill-level').textContent)
-                   }
-                   thinkingTime={
-                     JSON.parse(document.getElementById('stockfish-thinking-time').textContent)
-                   }/>
-                 }/>
+                 element={<StockfishGame />} />
           <Route path='play/:room_name' element={<Game/>}/>
           <Route path='editor'
-                 element={<Editor postFen={JSON.parse(document.getElementById('post-fen').textContent)}/>}/>
+                 element={<Editor />}/>
           <Route path='games/:filter_option' element={<Games/>}/>
           <Route path='favorites'/>
           <Route path='register' element={<Authentication />}/>
           <Route path='login' element={<Authentication />}/>
           <Route path='analysis'
-                 element={<Analysis postFen={JSON.parse(document.getElementById('post-fen').textContent)}
-                                    postPgn={JSON.parse(document.getElementById('post-pgn').textContent)}/>}>
-            <Route path="*" element={<Analysis/>} postFen={JSON.parse(document.getElementById('post-fen').textContent)}
-                   postPgn={JSON.parse(document.getElementById('post-pgn').textContent)}/>} />
+                 element={<Analysis />}>
+            <Route path="*" element={<Analysis/>} />} />
           </Route>
         </Routes>
       </Router>

@@ -7,8 +7,8 @@ import Piece from './Piece.jsx'
 import {makeMove} from "../utils/misc.js";
 
 
-export default function Editor({postFen}) {
-  const [chess, setChess] = React.useState(new Chess(postFen || undefined));
+export default function Editor() {
+  const [chess, setChess] = React.useState(new Chess(JSON.parse(document.getElementById('post-fen').textContent) || undefined));
 
   React.useEffect(() => {
     document.title = 'Board editor';

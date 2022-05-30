@@ -29,6 +29,8 @@ export default function Analysis({postFen, postPgn}) {
   })
 
   React.useEffect(() => {
+    postFen = JSON.parse(document.getElementById('post-fen').textContent);
+    postPgn = JSON.parse(document.getElementById('post-pgn').textContent);
     if (postFen) {
       const newChess = new Chess(postFen);
       newChess.load_pgn(postPgn);
@@ -61,7 +63,6 @@ export default function Analysis({postFen, postPgn}) {
       <div className='analysis-board'>
         {board}
         <div className='score-bar'>
-          {/*<div className='white-bar' style={{height: `${winningProbability * 100}%`}}/>*/}
           <div className='tick' style={{height: '12.5%'}}/>
           <div className='tick' style={{height: '25%'}}/>
           <div className='tick' style={{height: '37.5%'}}/>
@@ -104,7 +105,7 @@ export default function Analysis({postFen, postPgn}) {
             </p>
             <p>
               <input type="range" name="depth" defaultValue="20" min="1" max="25" className="range"
-                     onInput={(e) => setDepth(e.target.value)} id="depth_range"/>
+                     onChange={(e) => setDepth(e.target.value)} id="depth_range"/>
             </p>
             <p><i>{state.endType && state.endType}</i></p>
           </div>

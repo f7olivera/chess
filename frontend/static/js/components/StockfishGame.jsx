@@ -7,15 +7,19 @@ import {flip, setState} from "../redux/gameSlice.js";
 import Moves from "./Moves.jsx";
 
 
-export default function StockfishGame({fen, skillLevel, thinkingTime, playingAs}) {
+export default function StockfishGame() {
   const [chess, setChess] = React.useState(new Chess());
   const [fakeChess, setFakeChess] = React.useState();
   const [autoFlip, setAutoFlip] = React.useState(false);
   const board = useGameBoard({chessState: [chess, setChess], fakeChess});
   const state = useSelector((state) => state.game);
   const dispatch = useDispatch();
-  const stockfish = useStockfish({chessState: [chess, setChess], skillLevel, thinkingTime})
-  
+  const stockfish = useStockfish({
+    chessState: [chess, setChess],
+    skillLevel: JSON.parse(document.getElementById('stockfish-skill-level').textContent),
+    thinkingTime: JSON.parse(document.getElementById('stockfish-thinking-time').textContent)
+  })
+
   React.useEffect(() => {
     if (autoFlip && chess.turn() !== state.orientation) {
       dispatch(flip());
@@ -23,6 +27,10 @@ export default function StockfishGame({fen, skillLevel, thinkingTime, playingAs}
   }, [chess, autoFlip]);
 
   const startStockfishGame = () => {
+    fen = JSON.parse(document.getElementById('stockfish-fen').textContent);
+    playingAs = JSON.parse(document.getElementById('playing-as').textContent) === 'random' ?
+      (Math.round(Math.random()) ? 'w' : 'b') :
+      JSON.parse(document.getElementById('playing-as').textContent);
     setChess(new Chess(fen));
     dispatch(setState({
       orientation: playingAs,

@@ -175,63 +175,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-links">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" id="game" aria-current="page" href="play/a">Play</a>
-                </li> -->
-
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link" href="#" id="navbarDropdown" role="button"#}
-{#                       data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                        Play#}
-{#                    </a>#}
-{#                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                        <li>#}
-{#                            <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"#}
-{#                               id="create_button">#}
-{#                                With a friend#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li><a class="dropdown-item" href=""#}
-{#                               id="launch-stockfish-settings"#}
-{#                               class="nav-link btn btn-primary"#}
-{#                               data-bs-toggle="modal"#}
-{#                               data-bs-target="#stockfishModal">With the computer</a></li>#}
-{#                        <li><a class="dropdown-item" href="{% url 'play_offline' %}">Over the board</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
-{##}
-{#                <li class="nav-item" id="editor-link">#}
-{#                </li>#}
-{#                {% if user.is_authenticated %}#}
-{#                    <li class="nav-item dropdown user">#}
-{#                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"#}
-{#                           data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                            {{ user.username }}#}
-{#                        </a>#}
-{#                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                            <li><a class="dropdown-item" href="{% url 'games' filter_option='all' %}">My games</a></li>#}
-{#                            <li><a class="dropdown-item"#}
-{#                                   href="{% url 'games' filter_option='bookmarks' %}">Favorites</a></li>#}
-{#                            <li>#}
-{#                                <hr class="dropdown-divider">#}
-{#                            </li>#}
-{#                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>#}
-{#                        </ul>#}
-{#                    </li>#}
-{#                {% else %}#}
-{#                    <li class="nav-item login">#}
-{#                        <a class="nav-link" href="{% url 'login' %}">Log In</a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-
-                <!-- <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
             </ul>
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
         </div>
     </div>
 </nav>
@@ -263,9 +207,6 @@
   const userContainerWidth = document.querySelector('.user') ? document.querySelector('.user').offsetWidth : 80;
 
   window.onresize = () => {
-    {#body.style.backgroundPosition = `50% calc(50% + ${navbar.offsetHeight}px)`;#}
-    {#body.style.backgroundPosition = `50% max(30%, 6.5rem)`;#}
-    {#body.style.backgroundSize = `50% calc(50% + max(30%, 4rem))`;#}
     window.innerWidth < 320 + userContainerWidth ? navbar.classList.replace('navbar-expand', 'navbar-expand-sm') : navbar.classList.replace('navbar-expand-sm', 'navbar-expand')
   };
   window.dispatchEvent(new Event('resize'));
@@ -279,10 +220,8 @@
     navbarToggler.onclick = () => {
       console.log(!navbarToggler.classList.contains('collapsed'))
       if (!navbarToggler.classList.contains('collapsed') && navbar.classList.contains('navbar-expand-sm')) {
-        {#body.style.backgroundPosition = `50% calc(50% + ${navbar.offsetHeight}px)`#}
         modalGroup.style.marginTop = `${2 * navbar.offsetHeight}px`
       } else {
-        {#body.style.backgroundPosition = `50% 50%`#}
         modalGroup.style.marginTop = '0';
       }
     }
