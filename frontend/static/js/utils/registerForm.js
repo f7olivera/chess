@@ -18,7 +18,23 @@ export function submitRegisterForm() {
   errors.length === 0 && registerForm.submit();
 }
 
-export async function validateNewUser() {
+export function validateNewUser() {
+  const registerForm = document.querySelector('.authentication[action="/register"]');
+  const username = registerForm.querySelector('[name=username]').value;
+  const errorContainer = registerForm.querySelector('#user-error');
+
+  if (username && !/^[a-zA-Z0-9_]+$/.test(username)) {
+    displayError(errorContainer, 'Username must only contain letters, numbers and underscores.');
+  } else if (username && username.length < 3) {
+    displayError(errorContainer, 'Username must contain at least 3 characters.');
+  } else if (username && username.length > 20) {
+    displayError(errorContainer, 'Username must be under 20 characters long.');
+  } else {
+    errorContainer.classList.replace('d-block', 'd-none');
+  }
+}
+
+export async function checkUserExistance() {
   const registerForm = document.querySelector('.authentication[action="/register"]');
   const username = registerForm.querySelector('[name=username]').value;
   const errorContainer = registerForm.querySelector('#user-error');
@@ -26,16 +42,6 @@ export async function validateNewUser() {
 
   if (exists) {
     displayError(errorContainer, 'Username already taken.');
-  } else if (username && !/^[a-zA-Z0-9]+$/.test(username)) {
-    displayError(errorContainer, 'Username must only contain letters, numbers and underscores.');
-  } else if (username && username.length < 3) {
-    displayError(errorContainer, 'Username must contain at least 3 characters.');
-  } else if (username && username.length > 20) {
-    displayError(errorContainer, 'Username must be under 20 characters long.');
-  } else if (username && !/^[a-zA-Z0-9]+$/.test(username)) {
-    displayError(errorContainer, 'Username must only contain letters, numbers and underscores.');
-  } else {
-    errorContainer.classList.replace('d-block', 'd-none');
   }
 }
 

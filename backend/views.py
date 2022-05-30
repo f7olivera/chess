@@ -53,7 +53,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
 
-        if re.match(r'/^[a-zA-Z0-9]+$/', username):
+        if re.match(r'/^[a-zA-Z0-9_]+$/', username):
             return render(request, "backend/register.html", {
                 "username": username,
                 "email": email,
