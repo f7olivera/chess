@@ -1353,7 +1353,7 @@ label[for^=castle], label[for='inputFEN'] {
 }
 
 .analysis-board {
-    max-width: min(50rem, 100vw);
+    max-width: min(53.6rem, 100vw);
     max-height: 100vh;
     display: flex;
     width: 100%;
