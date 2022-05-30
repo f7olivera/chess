@@ -309,3 +309,4 @@ frontend/cypress.json
 switch_mode.py
 frontend/static/frontend/main.js.LICENSE.txt
 frontend/static/frontend/main.js
+testserver_fixture.json
