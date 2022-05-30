@@ -8,8 +8,10 @@ import Games from './js/components/Games.jsx'
 import Editor from './js/components/Editor.jsx'
 import Analysis from './js/components/Analysis.jsx'
 import Miniboard from "./js/components/Miniboard.jsx";
+import Authentication from "./js/components/Authentication.jsx";
 import store from "./js/redux/store.js";
 import {Provider} from 'react-redux'
+import Navbar from "./js/components/Navbar.jsx";
 
 
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
       <Miniboard container={document.querySelector('.create-board')}/>
       <Miniboard container={document.querySelector('.create-stockfish-board')}/>
       <Router>
+        <Navbar />
         <Routes>
           <Route path='' element={<Index/>}/>
           <Route path='play/offline' element={<OfflineGame/>}/>
@@ -47,6 +50,8 @@ export default function App() {
                  element={<Editor postFen={JSON.parse(document.getElementById('post-fen').textContent)}/>}/>
           <Route path='games/:filter_option' element={<Games/>}/>
           <Route path='favorites'/>
+          <Route path='register' element={<Authentication />}/>
+          <Route path='login' element={<Authentication />}/>
           <Route path='analysis'
                  element={<Analysis postFen={JSON.parse(document.getElementById('post-fen').textContent)}
                                     postPgn={JSON.parse(document.getElementById('post-pgn').textContent)}/>}>
