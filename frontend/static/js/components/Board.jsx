@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Square from './Square.jsx'
 import Piece from './Piece.jsx';
 import {useSelector} from "react-redux";
-import {makeMove} from '../misc/misc.js'
+import {makeMove} from '../utils/misc.js'
 
 export default function Board({
                                 chess,

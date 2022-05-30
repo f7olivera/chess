@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import AdjustingInterval from "../misc/timer.js";
+import AdjustingInterval from "../utils/timer.js";
 
 export default function Timer({ time, setTime, running }) {
   const [stop, setStop] = React.useState(false);

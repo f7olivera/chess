@@ -2,7 +2,7 @@ import React from "react";
 import Chess from "chess.js";
 import {useDispatch, useSelector} from "react-redux";
 import {gameActions, setState} from "../redux/gameSlice";
-import {verbose2uci} from "../misc/misc.js";
+import {verbose2uci} from "../utils/misc.js";
 
 
 export default function useWebsocket({chessState: [chess, setChess],

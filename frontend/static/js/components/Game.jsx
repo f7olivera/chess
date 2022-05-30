@@ -4,7 +4,7 @@ import Moves from "./Moves.jsx";
 import Chat from "./Chat.jsx";
 import useGameBoard from "../hooks/useGameBoard.js";
 import useWebsocket from "../hooks/useWebsocket.js";
-import {bookmarkGame, copyTextToClipboard, sendWebsocketMessage} from "../misc/misc.js";
+import {bookmarkGame, copyTextToClipboard, sendWebsocketMessage} from "../utils/misc.js";
 import {useDispatch, useSelector} from "react-redux";
 import {flip, resign_confirmation} from "../redux/gameSlice.js";
 

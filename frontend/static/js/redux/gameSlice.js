@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import Chess from "../../../node_modules/chess.js/chess";
-import {getLastMove} from "../misc/misc.js";
+import {getLastMove} from "../utils/misc.js";
 
 
 export const gameSlice = createSlice({

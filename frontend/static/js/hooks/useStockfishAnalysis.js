@@ -1,7 +1,7 @@
 import React from "react";
 import Chess from "chess.js";
 import {useDispatch} from "react-redux";
-import {isUCI, parseHistory} from "../misc/misc.js";
+import {isUCI, parseHistory} from "../utils/misc.js";
 import {setState} from "../redux/gameSlice.js";
 
 export default function useStockfishAnalysis({

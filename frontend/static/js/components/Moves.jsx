@@ -1,5 +1,5 @@
 import Chess from "chess.js";
-import {getCookie, whitenChild, unwhitenChild, parseHistory} from "../misc/misc.js";
+import {getCookie, whitenChild, unwhitenChild, parseHistory} from "../utils/misc.js";
 import React from "react";
 import {useSelector} from "react-redux";
 

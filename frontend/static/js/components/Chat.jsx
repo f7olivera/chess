@@ -1,5 +1,5 @@
 import {chat_message} from "../redux/gameSlice";
-import {sendWebsocketMessage} from "../misc/misc";
+import {sendWebsocketMessage} from "../utils/misc";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Linkify from 'react-linkify';

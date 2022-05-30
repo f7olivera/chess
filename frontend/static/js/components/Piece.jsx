@@ -4,7 +4,7 @@ import Chess from "chess.js";
 import {
   getMove,
   selectPiece
-} from '../misc/misc.js'
+} from '../utils/misc.js'
 
 export default function Piece({chess, onDrop, ended, turn, type, color, promotion, playingAs, disabled}) {
   function pickPiece(event) {
@@ -102,6 +102,7 @@ export default function Piece({chess, onDrop, ended, turn, type, color, promotio
 
   return (
     <div
+      data-piece={`${type}${color}`}
       data-color={color}
       onMouseDown={!disabled && (!playingAs || playingAs === color) && (!turn || turn === color) && !ended && !promotion ?
         pickPiece : () => {
