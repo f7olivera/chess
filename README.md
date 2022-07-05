@@ -3,7 +3,7 @@
 ![](https://i.imgur.com/2NRSBuD.png)
 
 ## Features
-- Multiplayer real time chess matches.
+- Online real-time chess matches.
 - Play against Stockfish on multiple difficulty levels.
 - Edit, analyze and play from any position.
 - Login/Register system.
