@@ -29,7 +29,7 @@ export default function useGameBoard({chessState: [chess, setChess], fakeChess, 
                   whitePlayer: (
                     <div className={`player ${state.orientation === 'w' ? 'order-2' : 'order-0'}`}>
                       {state.whitePlayer &&
-                      <div>
+                      <div className='player-username'>
                         <span className={`circle light-circle`}/>
                         <span> {state.whitePlayer}</span>
                       </div>}
@@ -44,7 +44,7 @@ export default function useGameBoard({chessState: [chess, setChess], fakeChess, 
                   blackPlayer: (
                     <div className={`player ${state.orientation === 'w' ? 'order-0' : 'order-2'}`}>
                       {state.blackPlayer &&
-                      <div>
+                      <div className='player-username'>
                         <span className={`circle dark-circle`}/>
                         <span> {state.blackPlayer}</span>
                       </div>}

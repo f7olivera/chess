@@ -52,7 +52,7 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
 
 
 @media screen and (max-width: 365px) {
-    .contenedor > * {
+    .main-container > * {
         /*flex: 1 0 !important;*/
     }
 }
@@ -151,13 +151,13 @@ body ::-webkit-scrollbar, body ::-webkit-scrollbar-corner {
     flex: 1 0;
 }
 
-.contenedor {
+.main-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.contenedor > * {
+.main-container > * {
     padding: 0 0.3rem 0 0.3rem;
 }
 
@@ -895,7 +895,7 @@ label[for^=castle], label[for='inputFEN'] {
     filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
 }
 
-.contenedor.game {
+.main-container.game {
     max-width: 80rem;
     margin: auto;
 }
@@ -905,7 +905,7 @@ label[for^=castle], label[for='inputFEN'] {
 }
 
 .game .board {
-    max-width: 80vh;
+    max-width: min(97vw, 74vh);
 }
 
 .flip-button.offline {
@@ -1218,6 +1218,13 @@ label[for^=castle], label[for='inputFEN'] {
     justify-content: space-between;
     align-items: center;
     font-size: 2rem;
+}
+
+.player-username {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 0.4rem;
 }
 
 .link {
