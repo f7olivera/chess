@@ -244,21 +244,14 @@ export function copyTextToClipboard(text) {
   }, (err) => console.error('Async: Could not copy text: ', err));
 }
 
-export function checkUserExistence(username) {
+export function checkUsernameExistence(username) {
   // {#const checkForUserForm = document.createElement('form');#}
   // {#checkForUserForm.method = 'POST';#}
   // {#const userInput = document.createElement('input');#}
   // {#userInput.value = user;#}
   // {#userInput.name = 'username';#}
   // {#checkForUserForm.appendChild(userInput)#}
-  const request = new Request(window.location.origin + '/backend/user', {
-    method: 'POST',
-    body: JSON.stringify({username: username}),
-    headers: new Headers({
-      'Content-Type': 'x-www-form-urlencoded',
-      'X-CSRFToken': getCookie("csrftoken")
-    })
-  });
+  const request = new Request(`/backend/user/${username}`);
   return fetch(request)
     .then((response) => response.json())
     .then((user) => {

@@ -1,4 +1,4 @@
-import {checkUserExistence, getCookie} from "./misc.js";
+import {checkUsernameExistence} from "./misc.js";
 
 const displayError = (errorContainer, message) => {
   errorContainer.textContent = message;
@@ -34,11 +34,11 @@ export function validateNewUser() {
   }
 }
 
-export async function checkUserExistance() {
+export async function checkUserExistence() {
   const registerForm = document.querySelector('.authentication[action="/register"]');
   const username = registerForm.querySelector('[name=username]').value;
   const errorContainer = registerForm.querySelector('#user-error');
-  const exists = await checkUserExistence(username);
+  const exists = await checkUsernameExistence(username);
 
   if (exists) {
     displayError(errorContainer, 'Username already taken.');
@@ -51,21 +51,14 @@ export async function validateEmail() {
   const errorContainer = registerForm.querySelector('#email-error');
 
   const checkEmailExistence = () => {
-    const request = new Request(window.location.origin + '/backend/email', {
-      method: 'POST',
-      body: JSON.stringify({email: email}),
-      headers: new Headers({
-        'Content-Type': 'x-www-form-urlencoded',
-        'X-CSRFToken': getCookie("csrftoken")
-      })
-    });
+    const request = new Request(`/backend/email/${email}`);
     return fetch(request)
       .then((response) => response.json())
       .then((email) => {
         return email['exists'];
       });
   }
-
+console.log(await checkEmailExistence())
   if (email && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     displayError(errorContainer, 'Invalid email address.');
   } else if (await checkEmailExistence()) {

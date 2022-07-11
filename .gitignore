@@ -312,3 +312,5 @@ frontend/static/frontend/main.js
 testserver_fixture.json
 frontend/static/frontend/main.js.LICENSE.txt
 frontend/package-lock.json
+package-lock.json
+package.json

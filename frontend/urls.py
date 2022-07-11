@@ -17,6 +17,6 @@ urlpatterns = [
     path("login", backend.views.login_view, name="login"),
     path("logout", backend.views.logout_view, name="logout"),
     path("register", backend.views.register, name="register"),
-    path("backend/user", backend.views.check_user_existence, name="check_user_existence"),
-    path("backend/email", backend.views.check_email_existence, name="check_email_existence"),
+    path("backend/user/<str:username>", backend.views.check_user_existence, name="check_user_existence"),
+    path("backend/email/<str:email>", backend.views.check_email_existence, name="check_email_existence"),
 ]

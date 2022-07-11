@@ -1,4 +1,4 @@
-import {checkUserExistence} from "./misc.js";
+import {checkUsernameExistence} from "./misc.js";
 
 
 export function validateNewGameForm(form, e) {
@@ -11,9 +11,8 @@ export function validateNewGameForm(form, e) {
 
 export async function validateUser() {
   const username = document.querySelector('#id_opponent').value;
-  const exists = await checkUserExistence(username);
+  const exists = await checkUsernameExistence(username);
   const errorContainer = document.querySelector('#user-error');
-  console.log(exists)
   if (exists) {
     errorContainer.classList.replace('d-block', 'd-none');
   } else {

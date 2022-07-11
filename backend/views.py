@@ -131,19 +131,11 @@ def register(request):
         })
 
 
-def check_user_existence(request):
-    if request.method == 'POST':
-        body = json.loads(request.body.decode('utf-8'))
-        username = body.get("username").lower()
-        return JsonResponse({'exists': User.objects.filter(username=username).exists()})
-    else:
-        return HttpResponseRedirect(reverse("index"))
 
 
-def check_email_existence(request):
-    if request.method == 'POST':
-        body = json.loads(request.body.decode('utf-8'))
-        email = body.get("email").lower()
-        return JsonResponse({'exists': User.objects.filter(email=email).exists()})
-    else:
-        return HttpResponseRedirect(reverse("index"))
+def check_user_existence(request, username):
+    return JsonResponse({'exists': User.objects.filter(username=username.lower()).exists()}, safe=False)
+
+
+def check_email_existence(request, email):
+    return JsonResponse({'exists': User.objects.filter(email=email).exists()})
