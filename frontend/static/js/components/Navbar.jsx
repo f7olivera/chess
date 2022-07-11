@@ -42,7 +42,7 @@ export default function Navbar() {
               {JSON.parse(document.getElementById('user').textContent)}
             </a>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><Link className="dropdown-item" to="games/all">My games</Link></li>
+              <li><a className="dropdown-item" href="/games/all">My games</a></li>
               <li><Link className="dropdown-item"
                         to="games/bookmarks">Favorites</Link></li>
               <li>
