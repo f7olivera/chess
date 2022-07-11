@@ -41,7 +41,7 @@ export default function Game() {
 
   return (
     <>
-      <div className='contenedor game'>
+      <div className='main-container game'>
         {board}
       <div className='flex-wrap' id="game-actions">
           <div style={{display: `${!state.endType && state.drawOffer ? 'flex' : 'none'}`}} id='draw_offer'>

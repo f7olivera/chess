@@ -36,7 +36,7 @@ export default function OfflineGame() {
   }, [chess]);
 
   return (
-    <div className='contenedor game offline-game'>
+    <div className='main-container game offline-game'>
       {board}
       <div className='flex-wrap offline' id="game-actions">
         <Moves chess={chess} fakeChess={fakeChess} setFakeChess={setFakeChess}/>

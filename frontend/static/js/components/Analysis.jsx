@@ -59,7 +59,7 @@ export default function Analysis({postFen, postPgn}) {
   }
 
   return (
-    <div className='contenedor game offline-game'>
+    <div className='main-container game offline-game'>
       <div className='analysis-board'>
         {board}
         <div className='score-bar'>

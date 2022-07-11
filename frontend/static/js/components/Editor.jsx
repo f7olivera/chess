@@ -65,7 +65,7 @@ export default function Editor() {
       </div>)
 
   return (
-    <div className='contenedor'>
+    <div className='main-container'>
       {board}
       <div className='editor-tools'>
         {pieceGenerators}

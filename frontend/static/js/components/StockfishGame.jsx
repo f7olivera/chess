@@ -27,8 +27,8 @@ export default function StockfishGame() {
   }, [chess, autoFlip]);
 
   const startStockfishGame = () => {
-    fen = JSON.parse(document.getElementById('stockfish-fen').textContent);
-    playingAs = JSON.parse(document.getElementById('playing-as').textContent) === 'random' ?
+    const fen = JSON.parse(document.getElementById('stockfish-fen').textContent);
+    const playingAs = JSON.parse(document.getElementById('playing-as').textContent) === 'random' ?
       (Math.round(Math.random()) ? 'w' : 'b') :
       JSON.parse(document.getElementById('playing-as').textContent);
     setChess(new Chess(fen));
@@ -58,7 +58,7 @@ export default function StockfishGame() {
   }, [chess]);
 
   return (
-    <div className='contenedor game offline-game'>
+    <div className='main-container game offline-game'>
       {board}
       <div className='flex-wrap offline' id="game-actions">
         <Moves chess={chess} fakeChess={fakeChess} setFakeChess={setFakeChess}/>
