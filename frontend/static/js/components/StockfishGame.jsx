@@ -63,8 +63,7 @@ export default function StockfishGame() {
       <div className='flex-wrap offline' id="game-actions">
         <Moves chess={chess} fakeChess={fakeChess} setFakeChess={setFakeChess}/>
         <div className='offline-control-container'>
-          <div className='offline-info'
-               style={{height: '4rem'}}>
+          <div className='offline-info'>
             <p>
               Stockfish level <span className='stockfish-level'>10</span>
             </p>

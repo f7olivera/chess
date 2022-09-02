@@ -635,7 +635,7 @@ label[for^=castle], label[for='inputFEN'] {
 #game-actions.offline {
     flex-direction: row;
     flex-wrap: wrap !important;
-
+    max-width: min(97vw, 74vh) !important;
 }
 
 #game-actions.offline > * {
@@ -769,6 +769,7 @@ label[for^=castle], label[for='inputFEN'] {
 }
 
 .move-btn {
+    user-select: none;
     z-index: 2;
     cursor: pointer;
     transition: all 150ms;
