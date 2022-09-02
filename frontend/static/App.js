@@ -28,17 +28,14 @@ export default function App() {
         <Routes>
           <Route path='' element={<Index/>}/>
           <Route path='play/offline' element={<OfflineGame/>}/>
-          <Route path='play/stockfish'
-                 element={<StockfishGame />} />
+          <Route path='play/stockfish' element={<StockfishGame />} />
           <Route path='play/:room_name' element={<Game/>}/>
-          <Route path='editor'
-                 element={<Editor />}/>
+          <Route path='editor' element={<Editor />}/>
           <Route path='games/:filter_option' element={<Games/>}/>
           <Route path='favorites'/>
           <Route path='register' element={<Authentication />}/>
           <Route path='login' element={<Authentication />}/>
-          <Route path='analysis'
-                 element={<Analysis />}>
+          <Route path='analysis' element={<Analysis />}>
             <Route path="*" element={<Analysis/>} />} />
           </Route>
         </Routes>

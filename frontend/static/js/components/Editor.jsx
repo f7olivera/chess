@@ -15,6 +15,7 @@ export default function Editor() {
 
     return () => document.title = 'Chess';
   }, [])
+
   const setTurn = (player) => {
     const currentFEN = chess.fen();
     const newFEN = currentFEN.split(' ').map((elem) => elem === 'w' || elem === 'b' ? player : elem).join(' ');

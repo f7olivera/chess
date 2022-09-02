@@ -36,10 +36,6 @@ def play_stockfish(request):
         playing_as = request.POST.get('playing_as', '')
         skill_level = request.POST.get('stockfish_level', '')
         thinking_time = request.POST.get('stockfish_thinking_time', '')
-        print(fen,
-              playing_as,
-              skill_level,
-              thinking_time)
         return render(request, 'frontend/index.html', {
             'fen': fen,
             'playing_as': playing_as,
@@ -59,13 +55,12 @@ def editor(request):
     })
 
 
-def analysis(request, fen=None):
+def analysis(request):
     post_fen = ''
     post_pgn = ''
     if request.method == 'POST':
         post_fen = request.POST.get('fen', '')
         post_pgn = request.POST.get('pgn', '')[request.POST.get('pgn', '').find('1. '):]
-        print(post_pgn)
     return render(request, 'frontend/index.html', {
         'post_fen': post_fen,
         'post_pgn': post_pgn,
@@ -158,14 +153,15 @@ def games(request, filter_option):
     players = [player for player in player_instances if fullfils_filter(player, filter_option)]
     games_with_svg = get_games_svg(players)
     games_per_load = 12
-    print(page * games_per_load, (page + 1) * games_per_load)
     return render(request, 'frontend/games.html', context={
         'games': games_with_svg[page * games_per_load:(page + 1) * games_per_load],
         'filter_option': filter_option,
         'asd': len(games_with_svg),
         'total_games': len(player_instances),
-        'total_wins': len([player for player in player_instances if f'{"white" if player.is_white else "black"} wins' in player.game.end_type.lower()]),
-        'total_losses': len([player for player in player_instances if f'{"black" if player.is_white else "white"} wins' in player.game.end_type.lower()]),
+        'total_wins': len([player for player in player_instances if
+                           f'{"white" if player.is_white else "black"} wins' in player.game.end_type.lower()]),
+        'total_losses': len([player for player in player_instances if
+                             f'{"black" if player.is_white else "white"} wins' in player.game.end_type.lower()]),
         'total_draws': len([player for player in player_instances if 'draw' in player.game.end_type.lower()]),
         'total_bookmarks': len([player for player in player_instances if player.bookmark]),
     })

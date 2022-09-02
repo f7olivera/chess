@@ -21,7 +21,7 @@ export default function Navbar() {
           <li>
             <Link to="play/stockfish"
                id="launch-stockfish-settings"
-               className="nav-link btn btn-primary dropdown-item"
+               className="dropdown-item"
                data-bs-toggle="modal"
                data-bs-target="#stockfishModal">With the computer</Link>
           </li>
@@ -32,7 +32,7 @@ export default function Navbar() {
       </li>
 
       <li className="nav-item">
-        <Link className='nav-link' id='editor' to={'editor'}>Editor</Link>
+        <a className='nav-link' id='editor' href='/editor'>Editor</a>
       </li>
       {JSON.parse(document.getElementById('user').textContent) !== 'Anonymous' ?
         (
