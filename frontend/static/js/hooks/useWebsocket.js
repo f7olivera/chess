@@ -36,7 +36,7 @@ export default function useWebsocket({chessState: [chess, setChess],
     return websocket;
   }
 
-  // Connects websocket
+  // Connects websocket 
   React.useEffect(() => {
     const websocket = getWebsocket();
     ws.current = websocket;
