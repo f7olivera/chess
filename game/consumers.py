@@ -324,11 +324,10 @@ class ChessGame(WebsocketConsumer):
 
         if not game.started and not game.end_type:
             if players.filter(connected=False):
-                waiting_for = players.get(connected=False).user.username
                 async_to_sync(self.channel_layer.group_send)(
                     self.room_group_name, {
                         'type': 'wait_before_start',
-                        'waiting_for': waiting_for if waiting_for != 'Anonymous' else 'opponent' 
+                        'waiting_for': 'opponent'
                     }
                 )
             else:
