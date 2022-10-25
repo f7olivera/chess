@@ -1,7 +1,5 @@
 import {URL} from "./index";
 
-// context('Play new game', playSuiteCase);
-
 export default function playSuiteCase() {
 
   before(() => {
