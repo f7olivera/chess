@@ -1,5 +1,7 @@
 import json
+import random
 import re
+import string
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
@@ -8,6 +10,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 
 from .models import User
+
+sys_random = random.SystemRandom()
 
 
 def login_view(request):
@@ -131,11 +135,17 @@ def register(request):
         })
 
 
-
-
 def check_user_existence(request, username):
     return JsonResponse({'exists': User.objects.filter(username=username.lower()).exists()}, safe=False)
 
 
 def check_email_existence(request, email):
     return JsonResponse({'exists': User.objects.filter(email=email).exists()})
+
+
+def get_random_username(request):
+    usernames = [user.username for user in User.objects.all()]
+    random_username = ''
+    while random_username in usernames or not random_username:
+        random_username = ''.join(sys_random.choices(string.ascii_lowercase + string.digits + '_', k=8))
+    return JsonResponse({'username': random_username})
