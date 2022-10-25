@@ -19,4 +19,5 @@ urlpatterns = [
     path("register", backend.views.register, name="register"),
     path("backend/user/<str:username>", backend.views.check_user_existence, name="check_user_existence"),
     path("backend/email/<str:email>", backend.views.check_email_existence, name="check_email_existence"),
+    path("backend/random_username", backend.views.get_random_username, name="random_username"),
 ]
