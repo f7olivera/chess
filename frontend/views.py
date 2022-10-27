@@ -55,7 +55,7 @@ def editor(request):
     })
 
 
-def analysis(request):
+def analysis(request, fen):
     post_fen = ''
     post_pgn = ''
     if request.method == 'POST':

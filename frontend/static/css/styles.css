@@ -1361,6 +1361,7 @@ label[for^=castle], label[for='inputFEN'] {
 }
 
 .analysis-board {
+    justify-content: center;
     max-width: min(53.6rem, 100vw);
     max-height: 100vh;
     display: flex;
